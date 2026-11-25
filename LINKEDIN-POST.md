@@ -20,7 +20,7 @@ Duration: **1 week.**
 
 ## Post body
 
-*(3,012 characters — LinkedIn's limit is 3,000. Only the first ~210 show before "see more", so the first two lines carry the whole post.)*
+*(2,984 characters — LinkedIn's limit is 3,000. Only the first ~210 show before "see more", so the first two lines carry the whole post.)*
 
 Your shell saved that token. It's still there.
 
@@ -70,7 +70,7 @@ And if you want a seatbelt: Atuin (atuin.sh) replaces your shell history with a 
 
 Order matters though: clean your existing history FIRST. Atuin won't touch what's already there, and importing old history pulls the secrets straight into the new database.
 
-Repo's in the comments. MIT, ~400 lines of shell you can read in one sitting. I'd rather you read it than trust me.
+Repo's in the comments. MIT, ~400 lines of shell. I'd rather you read it than trust me.
 
 Vote honestly — I want to know if 392 makes me an outlier or just typical.
 
