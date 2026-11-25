@@ -1,0 +1,19 @@
+[Unit]
+Description=Redact credentials from shell history
+Documentation=https://github.com/luctrate/history-check
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh __REPO__/history-redact.sh --apply --no-backup --plain
+Nice=10
+IOSchedulingClass=idle
+StandardOutput=append:%h/.local/state/history-redact.log
+StandardError=append:%h/.local/state/history-redact.log
+# Keep it away from everything except the history files it must rewrite.
+PrivateNetwork=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+NoNewPrivileges=yes
+ReadWritePaths=%h

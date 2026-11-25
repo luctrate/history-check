@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.luctrate.history-redact</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>__REPO__/history-redact.sh</string>
+        <string>--apply</string>
+        <string>--no-backup</string>
+        <string>--plain</string>
+    </array>
+    <!-- Every 30 minutes. Lower is not safer in any meaningful way; the
+         exposure window is "until the next run" either way. -->
+    <key>StartInterval</key>
+    <integer>1800</integer>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>Nice</key>
+    <integer>10</integer>
+    <key>LowPriorityIO</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>__HOME__/.local/state/history-redact.log</string>
+    <key>StandardErrorPath</key>
+    <string>__HOME__/.local/state/history-redact.log</string>
+</dict>
+</plist>

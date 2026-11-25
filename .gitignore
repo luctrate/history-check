@@ -1,0 +1,4 @@
+*.pre-redact-*
+*.pre-scrub-*
+*.new
+.DS_Store

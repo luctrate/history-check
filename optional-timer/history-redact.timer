@@ -1,0 +1,13 @@
+[Unit]
+Description=Periodically redact credentials from shell history
+Documentation=https://github.com/luctrate/history-check
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=30min
+# Avoid every machine firing on the same second.
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

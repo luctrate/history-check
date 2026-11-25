@@ -1,0 +1,4 @@
+- cmd: export FORGE_API_TOKEN=ATATTFAKEfakeFAKEfakeFAKEfake
+  when: 1764000000
+- cmd: ls -la
+  when: 1764000001

@@ -1,0 +1,36 @@
+cd ~/projects
+export TOKEN=aad
+export GITHUB_TOKEN=ghp_FAKEfakeFAKEfakeFAKEfakeFAKEfake1111
+export STRIPE_SECRET_KEY=sk_live_FAKEfakeFAKEfake0000
+export OPENAI_API_KEY=sk-proj-FAKEfakeFAKEfakeFAKEfakeFAKEfake
+export ANTHROPIC_API_KEY=sk-ant-api03-FAKEfakeFAKEfakeFAKEfakeFAKEfake
+export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+export GEMINI_API_KEY=AIzaFAKEfakeFAKEfakeFAKEfakeFAKEfake123
+export ATLASSIAN_TOKEN=ATATTFAKEfakeFAKEfakeFAKEfake
+export HF_TOKEN=hf_FAKEfakeFAKEfakeFAKEfakeFAKEfake
+export SLACK_TOKEN=xoxb-EXAMPLE-NOT-A-REAL-TOKEN-FAKEfake
+export NPM_TOKEN=npm_FAKEfakeFAKEfakeFAKEfakeFAKEfake1111
+export POSTGRES_PASSWORD=fakepassword123
+export DB_PASSWORD="fakepassword456"
+curl -u admin:fakecurlpass https://api.example.com
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U' https://api.example.com
+psql postgres://dbuser:fakedbpass@db.example.com:5432/mydb
+mysql --user=root --password=fakemysqlpw -e 'select 1'
+curl --request POST --form 'chart=@app-1.0.0.tgz' --user registry-writer:fakeregistrypw https://gitlab.example.com/api/v4/projects/1/packages/helm/api/stable/charts
+gh auth login --with-token ghp_FAKEfakeFAKEfakeFAKEfakeFAKEfake2222
+kubectl create secret generic app --from-literal=JWT_SECRET=fakejwtsigningsecret
+docker login -u me --password fakedockerpw
+cat .env
+cat ~/projects/app/.env
+echo $GITHUB_TOKEN
+source .env
+git clone https://github.com/luctrate/history-check
+ls -la
+npm install
+TOKEN=$EXISTING_TOKEN ./run.sh
+export PYTHONPATH=/usr/local/lib/python3.11
+export CERT_PATH=/etc/ssl/certs/ca.pem
+export OLLAMA_API_BASE_URL=http://localhost:11434
+export CLAUDE_CODE_OAUTH_TOKEN="REDACTED"
+kubectl get pods -o jsonpath={.items[0].metadata.name}
