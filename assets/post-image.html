@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>history-check</title>
+<style>
+  :root{
+    --bg:#0b0e14; --panel:#11151f; --chrome:#1a1f2b; --border:#232936;
+    --fg:#c9d4e3; --dim:#5a6678; --cyan:#5ccfe6; --yel:#ffcc66;
+    --red:#ff6666; --grn:#95e6a8; --wht:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:1200px;background:var(--bg);overflow:hidden}
+  body{
+    font-family:-apple-system,"SF Pro Display","Helvetica Neue",sans-serif;
+    display:flex;flex-direction:column;padding:62px 64px 54px;
+    /* faint vignette so the terminal panel lifts off the background */
+    background:radial-gradient(130% 95% at 50% 0%, #141a26 0%, #0b0e14 62%);
+  }
+  .kicker{
+    font-size:19px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:22px;
+  }
+  h1{
+    font-size:76px;line-height:1.05;font-weight:700;letter-spacing:-.025em;
+    color:var(--wht);
+  }
+  h1 .sub{display:block;color:var(--yel);margin-top:6px}
+  .term{
+    margin-top:42px;flex:1;background:var(--panel);
+    border:1px solid var(--border);border-radius:14px;overflow:hidden;
+    box-shadow:0 26px 60px rgba(0,0,0,.55);display:flex;flex-direction:column;
+  }
+  .bar{
+    height:44px;background:var(--chrome);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;padding:0 18px;gap:9px;flex:none;
+  }
+  .dot{width:12px;height:12px;border-radius:50%}
+  .bar .t{
+    margin-left:14px;font-size:14px;color:var(--dim);
+    font-family:"SF Mono",Menlo,Monaco,monospace;
+  }
+  pre{
+    flex:1;padding:22px 28px;font-size:19px;line-height:1.47;color:var(--fg);
+    font-family:"SF Mono",Menlo,Monaco,monospace;font-variant-ligatures:none;
+    white-space:pre;
+  }
+  .d{color:var(--dim)} .c{color:var(--cyan)} .y{color:var(--yel)}
+  .r{color:var(--red)} .g{color:var(--grn)} .w{color:var(--wht);font-weight:600}
+  .foot{
+    margin-top:30px;display:flex;align-items:baseline;justify-content:space-between;flex:none;
+  }
+  .foot .l{font-size:25px;color:var(--fg);font-weight:500}
+  .foot .l b{color:var(--wht);font-weight:700}
+  .foot .r2{font-size:21px;color:var(--dim);font-family:"SF Mono",Menlo,monospace}
+</style></head>
+<body>
+  <div class="kicker">plain text · unencrypted · in every backup</div>
+  <h1>Your shell saved<span class="sub">that token.</span></h1>
+
+  <div class="term">
+    <div class="bar">
+      <span class="dot" style="background:#ff5f57"></span>
+      <span class="dot" style="background:#febc2e"></span>
+      <span class="dot" style="background:#28c840"></span>
+      <span class="t">~ — history-check</span>
+    </div>
+<pre><span class="g">$</span> sh history-check.sh
+
+<span class="w">history-check</span> <span class="d">v1.0.0  (read-only — nothing is modified)</span>
+
+<span class="w">Scanned</span>
+  ~/.bash_history                   <span class="d">1204 entries</span>
+  ~/.zsh_history                    <span class="d">8431 entries</span>
+  ~/.local/share/fish/fish_history  <span class="d">9778 entries</span>
+  ~/.psql_history                   <span class="d">  67 entries</span>
+
+<span class="r" style="font-weight:700">!  392 commands contain a credential</span>
+
+<span class="c">~/.bash_history</span>
+  <span class="d"> 312</span>  <span class="y">GitHub token      </span>  export GITHUB_TOKEN=<span class="g">REDACTED</span>
+  <span class="d"> 318</span>  <span class="y">Stripe secret key </span>  export STRIPE_KEY=<span class="g">REDACTED</span>
+  <span class="d"> 455</span>  <span class="y">Bearer token, JWT </span>  curl -H 'Authorization: Bearer <span class="g">REDACTED</span>'
+  <span class="d"> 501</span>  <span class="y">URL password      </span>  psql postgres://api:<span class="g">REDACTED</span>@db/app
+  <span class="d"> 677</span>  <span class="y">Credential flag   </span>  mysql --password=<span class="g">REDACTED</span>
+
+<span class="w">By type</span>
+    <span class="w">84</span>  Atlassian API token
+    <span class="w">44</span>  JSON web token
+    <span class="w">17</span>  Google API key
+    <span class="w">12</span>  Stripe secret key</pre>
+  </div>
+
+  <div class="foot">
+    <div class="l"><b>export TOKEN=…</b> is a leak. To your own disk.</div>
+    <div class="r2">github.com/luctrate/history-check</div>
+  </div>
+</body></html>

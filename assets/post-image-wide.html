@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>history-check wide</title>
+<style>
+  :root{
+    --bg:#0b0e14;--panel:#11151f;--chrome:#1a1f2b;--border:#232936;
+    --fg:#c9d4e3;--dim:#5a6678;--cyan:#5ccfe6;--yel:#ffcc66;
+    --red:#ff6666;--grn:#95e6a8;--wht:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:627px;background:var(--bg);overflow:hidden}
+  body{
+    font-family:-apple-system,"SF Pro Display","Helvetica Neue",sans-serif;
+    display:flex;gap:40px;padding:48px 52px;
+    background:radial-gradient(120% 110% at 0% 0%, #151b28 0%, #0b0e14 60%);
+  }
+  .left{width:430px;flex:none;display:flex;flex-direction:column}
+  .kicker{
+    font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:18px;
+  }
+  h1{font-size:60px;line-height:1.04;font-weight:700;letter-spacing:-.025em;color:var(--wht)}
+  h1 .sub{display:block;color:var(--yel);margin-top:4px}
+  .blurb{margin-top:24px;font-size:20px;line-height:1.45;color:var(--fg)}
+  .blurb b{color:var(--wht)}
+  .spacer{flex:1}
+  .url{font-size:16px;color:var(--dim);font-family:"SF Mono",Menlo,monospace}
+  .term{
+    flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;
+    overflow:hidden;box-shadow:0 22px 50px rgba(0,0,0,.55);display:flex;flex-direction:column;
+  }
+  .bar{
+    height:36px;background:var(--chrome);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;padding:0 14px;gap:7px;flex:none;
+  }
+  .dot{width:10px;height:10px;border-radius:50%}
+  .bar .t{margin-left:10px;font-size:12px;color:var(--dim);font-family:"SF Mono",Menlo,monospace}
+  pre{
+    flex:1;padding:18px 20px;font-size:14.6px;line-height:1.5;color:var(--fg);
+    font-family:"SF Mono",Menlo,Monaco,monospace;white-space:pre;
+  }
+  .d{color:var(--dim)}.c{color:var(--cyan)}.y{color:var(--yel)}
+  .r{color:var(--red);font-weight:700}.g{color:var(--grn)}.w{color:var(--wht);font-weight:600}
+</style></head>
+<body>
+  <div class="left">
+    <div class="kicker">plain text · in every backup</div>
+    <h1>Your shell saved<span class="sub">that token.</span></h1>
+    <div class="blurb"><b>export TOKEN=…</b> is a leak.<br>To your own disk.</div>
+    <div class="spacer"></div>
+    <div class="url">github.com/luctrate/history-check</div>
+  </div>
+
+  <div class="term">
+    <div class="bar">
+      <span class="dot" style="background:#ff5f57"></span>
+      <span class="dot" style="background:#febc2e"></span>
+      <span class="dot" style="background:#28c840"></span>
+      <span class="t">~ — history-check</span>
+    </div>
+<pre><span class="g">$</span> sh history-check.sh
+
+<span class="w">history-check</span> <span class="d">v1.0.0  (read-only)</span>
+
+<span class="w">Scanned</span>
+  ~/.bash_history                   <span class="d">1204 entries</span>
+  ~/.zsh_history                    <span class="d">8431 entries</span>
+  ~/.local/share/fish/fish_history  <span class="d">9778 entries</span>
+  ~/.psql_history                   <span class="d">  67 entries</span>
+
+<span class="r">!  392 commands contain a credential</span>
+
+<span class="c">~/.bash_history</span>
+  <span class="d">312</span>  <span class="y">GitHub token     </span> export GITHUB_TOKEN=<span class="g">REDACTED</span>
+  <span class="d">318</span>  <span class="y">Stripe secret key</span> export STRIPE_KEY=<span class="g">REDACTED</span>
+  <span class="d">455</span>  <span class="y">Bearer token, JWT</span> curl -H 'Authorization: Bearer <span class="g">REDACTED</span>'
+  <span class="d">501</span>  <span class="y">URL password     </span> psql postgres://api:<span class="g">REDACTED</span>@db/app
+  <span class="d">677</span>  <span class="y">Credential flag  </span> mysql --password=<span class="g">REDACTED</span></pre>
+  </div>
+</body></html>
