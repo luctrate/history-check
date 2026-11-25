@@ -129,7 +129,7 @@ read -rs TOKEN                 # prompt instead of typing it inline
 
 ### 2. Turn on Atuin's secret filter
 
-[Atuin](https://atuin.sh) replaces your shell history with a searchable SQLite database, and **`secrets_filter` is on by default**. It redacts secrets *before they are ever written* — vendor token shapes plus structural rules (private keys, JWTs, `Bearer`, `curl -u`, URL passwords, `--password` flags, the generic `*_TOKEN=` family), each covered by unit tests in [`secrets/structural.rs`](https://github.com/atuinsh/atuin/blob/main/crates/atuin-common/src/secrets/structural.rs) and [`secrets/vendors.rs`](https://github.com/atuinsh/atuin/blob/main/crates/atuin-common/src/secrets/vendors.rs).
+[Atuin](https://atuin.sh) replaces your shell history with a searchable SQLite database, and **`secrets_filter` is on by default**. A command matching a known secret pattern is **dropped entirely** — it never reaches the database. Coverage is vendor token shapes plus structural rules (private keys, JWTs, `Bearer`, `curl -u`, URL passwords, `--password` flags, the generic `*_TOKEN=` family), each covered by unit tests in [`secrets/structural.rs`](https://github.com/atuinsh/atuin/blob/main/crates/atuin-common/src/secrets/structural.rs) and [`secrets/vendors.rs`](https://github.com/atuinsh/atuin/blob/main/crates/atuin-common/src/secrets/vendors.rs).
 
 Prevention beats cleanup, so **Atuin is the better permanent answer** and this repo is explicitly not competing with it. Verify it's on in `~/.config/atuin/config.toml`:
 
@@ -138,7 +138,18 @@ secrets_filter = true                       # default: true — leave it on
 history_filter = ["^\\s*vault ", "^op "]    # optional: your own regexes
 ```
 
-**Order matters.** Atuin does not clean what you already have, and `atuin import` will happily pull your existing history — secrets included — into a fresh database:
+Two details worth knowing, both verified against atuin 18.25.1 rather than taken from the docs:
+
+- **Command history is drop-only, not redact.** `secrets_filter` discards the
+  whole command. The `REDACTED` / `****` machinery in Atuin's source belongs to
+  its separate *output capture* feature (`session_capture/policy.rs`), not to
+  command history (`history.rs::should_save` → `contains_secret` → bool).
+- **`atuin import` does not apply `secrets_filter` at all.** `import.rs` calls
+  `db.save_bulk()` directly and never consults `should_save`. Confirmed by
+  experiment: with `secrets_filter = true`, importing a history file containing
+  three synthetic secrets stored all three verbatim.
+
+**Order matters.** Atuin does not clean what you already have, and `atuin import` will pull your existing history — secrets included — straight into a fresh database:
 
 ```
 1. sh history-check.sh            ← what's in there?

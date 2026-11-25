@@ -20,7 +20,7 @@ Duration: **1 week.**
 
 ## Post body
 
-*(2,984 characters — LinkedIn's limit is 3,000. Only the first ~210 show before "see more", so the first two lines carry the whole post.)*
+*(2,983 characters — LinkedIn's limit is 3,000. Only the first ~210 show before "see more", so the first two lines carry the whole post.)*
 
 Your shell saved that token. It's still there.
 
@@ -41,7 +41,7 @@ Your shell records the command, not its output. So `cat .env` leaks nothing — 
 
 So I wrote two scripts and made them public.
 
-→ history-check.sh — read-only. Scans bash, zsh, fish, ksh, plus the REPL histories everyone forgets (psql and mysql cheerfully store connection strings with inline passwords). Secrets masked in output. Writes nothing, sends nothing.
+→ history-check.sh — read-only. Scans bash, zsh, fish, ksh, plus the REPL histories everyone forgets (psql and mysql store connection strings with inline passwords). Secrets masked in output. Writes nothing, sends nothing.
 
 → history-redact.sh — replaces the secret VALUE with REDACTED, keeps the command, so history stays searchable. Dry-run by default.
 
@@ -49,7 +49,7 @@ So I wrote two scripts and made them public.
 
 Two things before you run it.
 
-ONE: there's no curl-pipe-to-shell one-liner in that repo, deliberately. Telling you to pipe an unread script from a stranger into your shell, in a post about credential hygiene, would be absurd. If you use a coding agent, paste this instead — it puts a reviewer between you and my code:
+ONE: there's no curl-pipe-to-shell one-liner in that repo, deliberately. Piping an unread script from a stranger into your shell, in a post about credential hygiene, would be absurd. If you use a coding agent, paste this instead — it puts a reviewer between you and my code:
 
   "Clone github.com/luctrate/history-check into a temp dir. Read
    history-check.sh first and tell me: does it write anything, or make
@@ -58,7 +58,7 @@ ONE: there's no curl-pipe-to-shell one-liner in that repo, deliberately. Telling
 
 That's the workflow I'd want for any script off the internet, mine included.
 
-TWO: redacting history is not revoking anything. Your backups still hold the old file. If something shows up, rotate it.
+TWO: redacting history is not revoking anything. Your backups still hold the old file. Rotate whatever shows up.
 
 The real fix is neither script. It's never typing secrets at a prompt:
 
@@ -66,9 +66,9 @@ The real fix is neither script. It's never typing secrets at a prompt:
   direnv allow
   op run -- ./deploy.sh
 
-And if you want a seatbelt: Atuin (atuin.sh) replaces your shell history with a searchable database, and its secrets filter is ON BY DEFAULT — it redacts credentials before they're ever written. Better than any cleanup, mine included.
+And if you want a seatbelt: Atuin (atuin.sh) replaces your shell history with a searchable database, and its secrets filter is ON BY DEFAULT — a command containing a credential is dropped before it's ever written. Better than any cleanup, mine included.
 
-Order matters though: clean your existing history FIRST. Atuin won't touch what's already there, and importing old history pulls the secrets straight into the new database.
+Order matters: clean your history FIRST. I checked rather than assumed — atuin import never consults the secrets filter, so importing pulls every secret straight into the new database.
 
 Repo's in the comments. MIT, ~400 lines of shell. I'd rather you read it than trust me.
 
